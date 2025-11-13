@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temporary Drive Link Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+    button { padding: 10px 20px; font-size: 16px; }
+    #link { margin-top: 20px; word-break: break-all; }
+  </style>
+</head>
+<body>
+  <h1>Generate Temporary Google Drive Link</h1>
+  <button id="generateBtn">Generate Link</button>
+  <div id="link"></div>
+
+  <script>
+    document.getElementById('generateBtn').addEventListener('click', async () => {
+      try {
+        const response = await fetch('/generate-link');
+        const data = await response.json();
+        if (data.link) {
+          document.getElementById('link').innerHTML = `
+            <p><a href="${data.link}" target="_blank">Click here for temporary access</a></p>
+            <p>Expires at: ${new Date(data.expiresAt).toLocaleString()}</p>
+          `;
+        } else {
+          document.getElementById('link').innerHTML = '<p>Error: ' + data.error + '</p>';
+        }
+      } catch (error) {
+        document.getElementById('link').innerHTML = '<p>Failed to generate link.</p>';
+      }
+    });
+  </script>
+</body>
+</html>
