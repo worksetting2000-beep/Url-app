@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Generate Temporary Link</title>
+</head>
+<body>
+<h2>Generate Temporary Link</h2>
+<input type="number" id="expiry" placeholder="Expires in seconds" value="60"/>
+<button onclick="generateLink()">Generate Link</button>
+<p id="result"></p>
+
+<script>
+function generateLink() {
+    const expiresIn = document.getElementById('expiry').value;
+    fetch("https://your-app.onrender.com/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ expiresIn: parseInt(expiresIn) })
+    })
+    .then(res => res.json())
+    .then(data => {
+        const p = document.getElementById('result');
+        p.innerHTML = `<a href="${data.tempLink}" target="_blank">Click to Download</a>`;
+    })
+    .catch(err => alert("Error: " + err));
+}
+</script>
+</body>
+</html>
