@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Endpoint to generate temporary link
 app.get('/generate-link', async (req, res) => {
   try {
-    const fileId = 'YOUR_FILE_ID_HERE'; // Replace with your Google Drive file ID
+    const fileId = '173xZXpobm57tgPARzLmJEictrRqOVYxx'; // Replace with your Google Drive file ID
     const expirationTime = new Date(Date.now() + 60 * 60 * 1000).toISOString(); // 1 hour from now
 
     // Create a permission with expiration
